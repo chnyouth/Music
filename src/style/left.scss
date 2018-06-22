@@ -1,0 +1,59 @@
+$anyRed: #c62f2f;//整体色调
+$inputRed: #A82828;//暗红
+$white:#fff;//白色
+html, body, div, span, h1, h2, h3, p, img, i, ul, li, label,
+footer, header, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+}
+html {
+  height: 100%;
+  font-size: 62.5%;
+}
+body {
+  height: 100%;
+  font-size: 1.4rem;
+  overflow: hidden;
+}
+
+.leftBox{
+  position: absolute;
+  width: 24.9rem;
+  height: 100%;
+  background: #F5F5F7;
+  border-right:1px solid #E1E1E2;
+  p{
+    font-size:14px;
+    color: #5C5C5C;
+    padding: .5rem 1rem;
+  }
+  ul{
+    width: 100%;
+    li{
+      display: block;
+      padding: 0 1rem;
+      height: 3rem;
+      cursor: pointer;
+      line-height: 3rem;
+      border-left:.5rem solid #F5F5F7;
+      &:hover{
+        background: #E6E7EA;
+        border-left:.5rem solid $anyRed;
+        a{
+          color: #000;
+          i{
+            color: #000;
+          }
+        }
+      }
+      a{
+        color: #5c5c5c;
+        text-decoration: none;
+        i{
+          margin-right: 1rem;
+          color: #5c5c5c;
+        }
+      }
+    }
+  }
+}

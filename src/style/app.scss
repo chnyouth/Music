@@ -1,0 +1,29 @@
+html, body, div, span, h1, h2, h3, p, img, i, ul, li, label,
+footer, header, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+}
+html {
+  height: 100%;
+  font-size: 62.5%;
+}
+body {
+  height: 100%;
+  font-size: 1.4rem;
+  overflow: hidden;
+}
+.textOverflow{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#app .router-view{
+  position: absolute;
+  top: 4.5rem;
+  right: 0;
+  bottom: 4.6rem;
+  left: 25rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #FAFAFA;
+}

@@ -1,0 +1,126 @@
+@import 'font.scss';
+$anyRed: #c62f2f;//整体色调
+$inputRed: #A82828;//暗红
+$white:#fff;//白色
+html, body, div, span, h1, h2, h3, p, img, i, ul, li, label,
+footer, header, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+}
+html {
+  height: 100%;
+  font-size: 62.5%;
+}
+body {
+  height: 100%;
+  font-size: 1.4rem;
+  overflow: hidden;
+}
+a{
+  text-decoration: none;
+}
+.iconfont{
+  color: #C77373;
+  vertical-align: middle;
+  font-family:"iconfont" !important;
+  font-size:16px;font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: pointer;
+}
+.iconfont:hover{
+  color: $white;
+}
+.header-box{
+  width: 100%;
+  padding: 0 2rem;
+  position: relative;
+  height: 4.5rem;
+  background-color: $anyRed;
+  line-height:4.5rem;
+  overflow: hidden;
+  box-sizing: border-box;
+  img{
+    vertical-align: middle;
+  }
+  label{
+    outline: none;
+    background: $inputRed;
+    vertical-align: middle;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    display: inline-block;
+    border-radius: 1rem;
+    padding: 0 2rem;
+    margin-left: 2rem;
+    input{
+      border: none;
+      background: none;
+      outline: none;
+      caret-color:$white;
+      width: 18rem;
+      color: $white;
+    }
+    input::-webkit-input-placeholder{
+      color: #C77373;
+    }
+    input::-ms-input-placeholder{
+      color: #C77373;
+    }
+    input::placeholder{
+      color: #C77373;
+    }
+  }
+  .header-right{
+    float: right;
+    width: 30rem;
+    .login{
+      float:right;
+      min-width: 10rem;
+      max-width: 19rem;
+      img{
+        width: 3rem;
+        height: 3rem;
+        border-radius: 100%;
+        overflow: hidden;
+        cursor: pointer;
+        float: left;
+        margin: 0.8rem 0;
+      }
+      span{
+        color: #EEC1C1;
+        padding: 0 0.5rem 0 1rem;
+        cursor: pointer;
+        min-width: 30%;
+        max-width: 67%;
+        float: left;
+        display: block;
+      }
+      i{
+        color: #EEC1C1;
+      }
+      &:hover{
+        span,i{
+          color: $white;
+        }
+      }
+    }
+    .settingBtn{
+      float: right;
+      min-width: 15rem;
+      a{
+        color: #EEC1C1;
+        font-size: 2.5rem;
+        vertical-align: middle;
+        margin: 0 .5rem;
+        &:hover{
+          color: $white;
+        }
+      }
+      .center{
+        text-align: center;
+      }
+    }
+  }
+}

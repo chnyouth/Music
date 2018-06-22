@@ -1,0 +1,21 @@
+$anyRed: #c62f2f;//整体色调
+$inputRed: #A82828;//暗红
+$white:#fff;//白色
+html, body, div, span, h1, h2, h3, p, img, i, ul, li, label,
+footer, header, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+}
+html {
+  height: 100%;
+  font-size: 62.5%;
+}
+body {
+  height: 100%;
+  font-size: 1.4rem;
+  overflow: hidden;
+}
+
+.leftBox{
+  background: #FAFAFA;
+}
