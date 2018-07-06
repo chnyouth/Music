@@ -16,6 +16,36 @@ body {
   overflow: hidden;
 }
 
-.leftBox{
-  background: #FAFAFA;
+.mbody{
+  .menu{
+    border-bottom:1px solid #E1E1E2;
+    overflow: hidden;
+    margin:0 5rem;
+    text-align: center;
+    li{
+      display: inline-block;
+      list-style-type: none;
+      padding: 1rem 3rem;
+      cursor: pointer;
+    }
+  }
+  .active{
+    border-bottom:2px solid #C62F2F;
+  }
+  .commend{
+    border-bottom:1px solid #E1E1E2;
+    margin: 0 5rem;
+    padding:0.5rem 0;
+    font-size: 2rem;
+    span{
+      float:right;
+      font-size:1rem;
+      color: #666;
+      line-height: 2.7rem;
+      cursor: pointer;
+      &:hover{
+        color:#000;
+      }
+    }
+  }
 }

@@ -15,6 +15,9 @@
         <a href=""><i class="iconfont">&#xe7e3;</i>朋友</a>
       </li>
     </ul>
+    <div class="playBox">
+      
+    </div>
   </div>
 </template>
 <script>

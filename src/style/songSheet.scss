@@ -1,0 +1,124 @@
+$anyRed: #c62f2f;//整体色调
+$inputRed: #A82828;//暗红
+$white:#fff;//白色
+html, body, div, span, h1, h2, h3, p, img, i, ul, li, label,
+footer, header, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+}
+li{
+  list-style-type: none;
+}
+html {
+  height: 100%;
+  font-size: 62.5%;
+}
+body {
+  height: 100%;
+  font-size: 1.4rem;
+  overflow: hidden;
+}
+
+
+.songSheet{
+  margin: 1rem 5rem;
+  li{
+    float: left;
+    width: 18%;
+    margin-right: 2.5%;
+    overflow: hidden;
+    &:nth-child(5n){
+      margin-right: 0;
+    }
+    .imgBox{
+      border:1px solid #E5E5E5;
+      width: 99%;
+      height: 0;
+      padding-bottom: 99%;
+      position: relative;
+      cursor: pointer;
+      img{
+        max-width: 100%;
+      }
+      span{
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(0, 0, 0, .5));
+        width: 7rem;
+        color: #fff;
+        font-size: 14px;
+        font-weight: normal;
+        text-align: right;
+        padding:2px 5px 2px 0;
+        transition-delay: 0.5s;
+        i{
+          color: #fff;
+          font-size: 12px;
+          position: relative;
+          top:-1px;
+        }
+      }
+      .txtBox{
+        position: absolute;
+        background: rgba(0, 0, 0, .4);
+        color: #fff;
+        padding: 5px 10px;
+        width: 100%;
+        box-sizing: border-box;
+        top: -50px;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -ms-transition: all 0.5s;
+        -o-transition: all 0.5s;
+        transition: all 0.5s;
+        transition-delay: 0.5s;
+      }
+      &:hover{
+        .txtBox{
+          top:0;
+          -webkit-transition: all 0.5s;
+          -moz-transition: all 0.5s;
+          -ms-transition: all 0.5s;
+          -o-transition: all 0.5s;
+          transition: all 0.5s;
+          transition-delay: 0.5s;
+        }
+        span{
+          top:-100%;
+          transition-delay: 0.5s;
+        }
+        a{
+          display: block;
+        }
+      }
+      a{
+        width: 24px;
+        height: 24px;
+        display: block;
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        background-position:-80px 0;
+        display:none;
+        &:hover{
+          background-position:-80px -30px;
+        }
+      }
+    }
+    .firstImg{
+      background: $white;
+      text-align: center;
+      img{
+        max-width: 100%;
+      }
+    }
+    .title{
+      height:4rem;
+      color: #333;
+      font-size: 14px;
+      padding: 8px 0;
+      cursor: pointer;
+    }
+  }
+}
