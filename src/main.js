@@ -11,7 +11,7 @@ const store = new Vuex.Store({
   state: {
     musicList: {'musicData': []},
     theme: 'red',
-    isPlaying: false,
+    isPlay: false,
     nowPlayIndex: 0,
     showMiniAudio: true,
     commendList: {'commendList': []},
@@ -21,6 +21,15 @@ const store = new Vuex.Store({
     showLogin: false,
     day: {'musicData': []},
     theme: ''
+  },
+  mutations: {
+    getMusicList(state,playload){
+      console.log(playload)
+      state.musicList.musicData=playload
+    },
+    isPlay(state,playload){
+      state.isPlay=playload
+    }
   }
 })
 new Vue({

@@ -11,6 +11,10 @@ body {
   height: 100%;
   font-size: 1.4rem;
   overflow: hidden;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
 }
 .textOverflow{
     overflow: hidden;

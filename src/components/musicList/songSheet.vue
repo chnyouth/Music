@@ -67,7 +67,12 @@ export default {
         ctx.fillText(txt,x,y);
       }
       canvasFunction("3rem 微软雅黑","#666",this.week,160,100)//星期
-      canvasFunction("20rem Arial","#C62F2F",this.day,150,300)//日期
+      let today = this.day.toString()
+      if(today.length>1){
+        canvasFunction("20rem Arial","#C62F2F",this.day,90,300)//日期
+      }else{
+        canvasFunction("20rem Arial","#C62F2F",this.day,150,300)//日期
+      }
       this.imgDate = c.toDataURL()//将canvas转成base64的图片
 
 
@@ -98,9 +103,9 @@ export default {
         }
       })
       .then(function(res){
-        console.log(res)
         if(res.data.code==200){
-          that.songSheet = res.data.result
+          // localStorage.setItem('musicList',JSON.stringify(res.data.result.tracks))
+          that.$store.commit('getMusicList', res.data.result.tracks)
         }else{
           console.log(res.statusText)
         }

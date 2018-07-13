@@ -1,0 +1,57 @@
+@import 'font.scss';
+$anyRed: #c62f2f;//整体色调
+$inputRed: #A82828;//暗红
+$white:#fff;//白色
+html, body, div, span, h1, h2, h3, p, img, i, ul, li, label,
+footer, header, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+}
+html {
+  height: 100%;
+  font-size: 62.5%;
+}
+body {
+  height: 100%;
+  font-size: 1.4rem;
+  overflow: hidden;
+}
+
+.progressBox{
+  height: 4px;
+  background: #e6e6e8;
+  border-radius: 10px;
+  float: left;
+  display: block;
+  margin: 25px 10px;
+  .currbg{
+    background: #E83C3C;
+    height: 4px;
+    display: block;
+    position: relative;
+    border-radius: 15px;
+    em{
+      position: absolute;
+      top: -6px;
+      width: 15px;
+      height: 15px;
+      display: block;
+      background: #fff;
+      border: 1px solid #C6C6C6;
+      border-radius: 100%;
+      cursor: pointer;
+      i{
+        width: 5px;
+        height: 5px;
+        display: block;
+        background: #E83C3C;
+        float: none;
+        margin: 5px auto;
+        border-radius: 100%;
+      }
+      &:hover{
+        box-shadow: 0px 0px 20px #c6c6c6;
+      }
+    }
+  }
+}
