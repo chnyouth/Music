@@ -106,6 +106,7 @@ export default {
         if(res.data.code==200){
           // localStorage.setItem('musicList',JSON.stringify(res.data.result.tracks))
           that.$store.commit('getMusicList', res.data.result.tracks)
+          that.$store.commit('isPlay', true)
         }else{
           console.log(res.statusText)
         }

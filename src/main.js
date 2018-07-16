@@ -24,7 +24,6 @@ const store = new Vuex.Store({
   },
   mutations: {
     getMusicList(state,playload){
-      console.log(playload)
       state.musicList.musicData=playload
     },
     isPlay(state,playload){
