@@ -5,7 +5,7 @@
     <div class="playIcon">
       <span class="iconfont">&#xe62e;</span>
       <span class="iconfont" @click="checkMusic">{{this.isPlay===true ? "&#xe674;":"&#xe62a;"}}</span>
-      <span class="iconfont" @click="getType">&#xe62f;</span>
+      <span class="iconfont">&#xe62f;</span>
     </div>
     <audio autoplay controls
       :src="musicUrl"
@@ -210,7 +210,7 @@ export default {
     // }
   }
 }
-</script>
+</script> a 
 <style lang="scss">
 @import '../style/footer';
 </style>
