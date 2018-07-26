@@ -3,7 +3,7 @@
   <div class="footerBox">
     <!-- <input type="text" v-on:keyup.space="submit" ref="input"> -->
     <div class="playIcon">
-      <span class="iconfont">&#xe62e;</span>
+      <span class="iconfont" @click="getDuration">&#xe62e;</span>
       <span class="iconfont" @click="checkMusic">{{this.isPlay===true ? "&#xe674;":"&#xe62a;"}}</span>
       <span class="iconfont">&#xe62f;</span>
     </div>
@@ -11,7 +11,8 @@
       :src="musicUrl"
       v-show="false"
       @ended="mEnd(false)"
-      ref="audio"></audio>
+      ref="audio">
+      </audio>
     <div class="progress">
       <i>{{this.curTime*1000 | formatDate}}</i>
       <!-- <div class="progressBox"><span class="currbg"><em><i></i></em></span></div> -->
@@ -40,7 +41,7 @@
       </div>
       <div class="playList">
         <i class="iconfont" v-on:click="openMusicList()">&#xe75c;</i>
-        <em class="" v-on:click="openMusicList()">{{musicList.length}}</em>
+        <em class="" v-on:click="openMusicList()">{{songSheet==''?0:songSheet.length}}</em>
       </div>
     </div>
     <div class="musicListBox" v-show="musicListBox">
@@ -48,21 +49,21 @@
         <div class="close iconfont" v-on:click="openMusicList()">&#xe616;</div>
         <div class="type">
           <a href="javascript:;" :class="historyBox ? 'cur':''" v-on:click="history(1)">播放列表</a>
-          <a href="javascript:;" :class="!historyBox ? 'cur':''" v-on:click="history(0)">历史记录</a>
+          <a href="javascript:;" :class="historyBox ? '':'cur'" v-on:click="history(0)">历史记录</a>
         </div>
       </div>
       <div class="list" v-show="historyBox">
         <div class="operationboard">
-          总{{musicList.length}}首<span><em class="iconfont">&#xe6f9; 收藏全部</em><em class="iconfont">&#xe68e; 清空</em></span>
+          总{{songSheet==''?0:songSheet.length}}首<span><em class="iconfont">&#xe6f9; 收藏全部</em><em class="iconfont">&#xe68e; 清空</em></span>
         </div>
-        <div class="noList" v-if="musicList.length==0">
+        <div class="noList" v-if="songSheet==''">
           你还没有添加任何歌曲！<br>去首页<a href="javascript:;" v-on:click="menuChange()">发现音乐</a>
         </div>
-        <div class="listItem" v-if="musicList.length!=0">
+        <div class="listItem" v-if="songSheet!=''">
           <ul>
-            <li v-for="(item , index) in musicList" :key="index">
-              <i class="iconfont">&#xe609;</i>
-              <span class="name">{{item.name}}</span>
+            <li v-for="(item , index) in songSheet" :key="index" v-on:click="getMusicSrc(item.id)">
+              <i class="iconfont">{{playData.id==item.id?'&#xe609;':'　'}}</i>
+              <span class="name">{{item.name}}<em style="color:#999;font-style:normal;">{{item.alias[0]==null?'':'('+item.alias[0]+')'}}</em></span>
               <span class="singer">{{item.artists[0].name}}</span>
               <span class="time">{{item.duration | formatDate}}</span>
             </li>
@@ -93,18 +94,22 @@ export default {
       tToltime:0,
       width:920,
       val:100,
-      playData:[],
-      musicUrl:''
+      playData:[],//当前播放音乐数据
+      musicUrl:'',
+      songSheet:[],
+      nowId:'0',
+      listId:0
     }
   },
   created(){
-    console.log(this.$store.state.musicList.musicData)
+    this.getMusicList
+    this.getStorage()
   },
   components:{
     vSlider
   },
   filters:{
-    formatDate: function (value) {
+    formatDate: function (value) {//时间格式化
         let date = new Date(value);
         let y = date.getFullYear();
         let MM = date.getMonth() + 1;
@@ -121,12 +126,18 @@ export default {
       }
   },
   computed: {
-    musicList() {
-      return this.$store.state.musicList.musicData
+    getMusicList() {//子组件返回的音乐列表
+      if(this.$store.state.getMusicList.musicData.length!=0){
+        let musicListData = JSON.stringify(this.$store.state.getMusicList.musicData)
+        localStorage.setItem('musicList',musicListData)//歌单存入localStorage
+      }
+      return this.$store.state.getMusicList.musicData
     },
-    isPlay(){
+    isPlay(){//子组件返回的播放状态
       if(this.$store.state.isPlay==true){
-        this.toPlay(0)
+        this.getMusicList
+        this.getStorage()
+        // this.toPlay(0)
       }
       return this.$store.state.isPlay
     }
@@ -159,12 +170,17 @@ export default {
         return
       }
       this.$store.commit('isPlay',true)
-      audio.play()
+      this.$nextTick(function() {
+          audio.play()
+      });
     },
     mEnd(){//音乐播放结束后
+      console.log('播放完了')
+      this.toPlay(this.listId+1)
       let audio = this.$refs.audio
-      audio.pause()
-      clearInterval(currTime)
+      // audio.pause()
+      // clearInterval(currTime)
+      audio.load();
     },
     move(value){//获取用户拖动过后的Time
       this.$refs.audio.currentTime=(value/this.width*this.toltime)/1000
@@ -174,24 +190,26 @@ export default {
       this.val=Number((value/70*100).toFixed())//放大一百倍
     },
     toPlay(i){//开始播放
-      this.playData = this.musicList[i]
-      this.getMusicSrc()
+      this.listId=i
+      this.nowId = this.songSheet[i].id
+      this.playData = this.songSheet[i]
+      this.getMusicSrc(this.nowId)
     },
-    getMusicSrc(){//获取音乐URL
+    getMusicSrc(value){//获取音乐URL
       let that = this;
       axios.get(urlConfig.url+'music/url',{
         params:{
-          id:this.playData.id
+          id:value
         }
       })
       .then(function(res){
+        console.log(res)
         if(res.data.code==200){
           that.musicUrl = res.data.data[0].url
-          console.log(that.$refs.audio.paused)
-          if(that.$refs.audio.paused===false){
-            that.toltime = Number(that.$refs.audio.duration)*1000
-            currTime = setInterval(that.getMusicCurrTime,1000)
-          }
+          that.getDuration()
+          currTime = setInterval(that.getMusicCurrTime,1000)
+          // that.getDuration()
+          that.$store.commit('isPlay', true)
         }else{
           console.log(res.statusText)
         }
@@ -200,17 +218,23 @@ export default {
 				console.log(err)
       })
     },
-    getMusicCurrTime(){//获取歌曲总长度
-      let that=this
-      that.curTime = Number((that.$refs.audio.currentTime).toFixed(3))
+    getMusicCurrTime(){//获取歌曲当前进度
+      this.curTime = Number((this.$refs.audio.currentTime).toFixed(3))
+    },
+    getDuration(){//音频加载完毕后获取音频时长
+      let that = this
+      this.$refs.audio.oncanplay = function(){
+        that.toltime = Number(that.$refs.audio.duration)*1000
+      }
+    },
+    getStorage(){//取出localStorage里的歌单数据
+    console.log(JSON.parse(localStorage.getItem("musicList")))
+      this.songSheet = JSON.parse(localStorage.getItem("musicList"))//取出localStorage里的歌单
+      this.toPlay(this.listId)
     }
-    // submit:function(){
-    //   console.log('按下了')
-    //   this.checkMusic()
-    // }
   }
 }
-</script> a 
+</script>
 <style lang="scss">
 @import '../style/footer';
 </style>

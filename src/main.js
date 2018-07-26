@@ -9,7 +9,7 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 const store = new Vuex.Store({
   state: {
-    musicList: {'musicData': []},
+    getMusicList: {'musicData': []},
     theme: 'red',
     isPlay: false,
     nowPlayIndex: 0,
@@ -24,7 +24,7 @@ const store = new Vuex.Store({
   },
   mutations: {
     getMusicList(state,playload){
-      state.musicList.musicData=playload
+      state.getMusicList.musicData=playload
     },
     isPlay(state,playload){
       state.isPlay=playload
