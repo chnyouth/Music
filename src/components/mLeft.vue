@@ -16,12 +16,38 @@
       </li>
     </ul>
     <div class="playBox">
-      
+      <div class="playleft">
+        <img :src="this.nowMusic.album.picUrl">
+      </div>
+      <div class="playright">
+        <em>{{this.nowMusic.name}}</em>
+        <i>{{this.nowMusic.artists[0].name}}</i>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import eventBus from './public/eventBus.vue';
+export default {
+  name:'mLeft',
+  props:{
+      
+  },
+  data(){
+    return{
+        nowMusic:[]
+    }
+  },
+  created(){
+    let that = this
+    eventBus.$on('nowMusic', function (msg) {//取出当前播放的音乐数据
+      that.nowMusic = msg
+    })
+  },
+  methods: {
 
+  }
+}
 </script>
 <style lang="scss">
 @import '../style/left';

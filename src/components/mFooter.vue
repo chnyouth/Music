@@ -3,9 +3,9 @@
   <div class="footerBox">
     <!-- <input type="text" v-on:keyup.space="submit" ref="input"> -->
     <div class="playIcon">
-      <span class="iconfont" @click="getDuration">&#xe62e;</span>
+      <span class="iconfont" @click="prev">&#xe62e;</span>
       <span class="iconfont" @click="checkMusic">{{this.isPlay===true ? "&#xe674;":"&#xe62a;"}}</span>
-      <span class="iconfont">&#xe62f;</span>
+      <span class="iconfont" @click="next">&#xe62f;</span>
     </div>
     <audio autoplay controls
       :src="musicUrl"
@@ -61,7 +61,7 @@
         </div>
         <div class="listItem" v-if="songSheet!=''">
           <ul>
-            <li v-for="(item , index) in songSheet" :key="index" v-on:click="getMusicSrc(item.id)">
+            <li v-for="(item , index) in songSheet" :key="index" v-on:dblclick="toPlay(index)">
               <i class="iconfont">{{playData.id==item.id?'&#xe609;':'　'}}</i>
               <span class="name">{{item.name}}<em style="color:#999;font-style:normal;">{{item.alias[0]==null?'':'('+item.alias[0]+')'}}</em></span>
               <span class="singer">{{item.artists[0].name}}</span>
@@ -80,8 +80,9 @@
 </template>
 <script>
 import urlConfig from '../urlConfig.vue';
-import vSlider from './public/slider.vue'
+import vSlider from './public/slider.vue';
 import axios from 'axios';
+import eventBus from './public/eventBus.vue';
 var currTime
 export default {
   name:'bodyList',
@@ -90,7 +91,7 @@ export default {
       musicListBox:false,
       historyBox:true,
       curTime:0,
-      toltime:240000,
+      toltime:240000,//默认音频总长度
       tToltime:0,
       width:920,
       val:100,
@@ -103,7 +104,10 @@ export default {
   },
   created(){
     this.getMusicList
-    this.getStorage()
+    // console.log(this.$store.state.isPlay)
+    // if(this.$store.state.isPlay!=false){
+      this.getStorage()
+    // }
   },
   components:{
     vSlider
@@ -130,13 +134,14 @@ export default {
       if(this.$store.state.getMusicList.musicData.length!=0){
         let musicListData = JSON.stringify(this.$store.state.getMusicList.musicData)
         localStorage.setItem('musicList',musicListData)//歌单存入localStorage
+        this.getStorage()
       }
       return this.$store.state.getMusicList.musicData
     },
     isPlay(){//子组件返回的播放状态
       if(this.$store.state.isPlay==true){
         this.getMusicList
-        this.getStorage()
+        // this.getStorage()
         // this.toPlay(0)
       }
       return this.$store.state.isPlay
@@ -174,13 +179,35 @@ export default {
           audio.play()
       });
     },
-    mEnd(){//音乐播放结束后
-      console.log('播放完了')
-      this.toPlay(this.listId+1)
+    prev(){//上一首
       let audio = this.$refs.audio
-      // audio.pause()
-      // clearInterval(currTime)
-      audio.load();
+      if(this.listId===0){
+        this.toPlay(this.songSheet.length-1)
+        audio.load();
+      }else{
+        this.toPlay(this.listId-1)
+        audio.load();
+      }
+    },
+    next(){//下一首
+      let audio = this.$refs.audio
+      if(this.listId===this.songSheet.length-1){
+        this.toPlay(0)
+        audio.load();
+      }else{
+        this.toPlay(this.listId+1)
+        audio.load();
+      }
+    },
+    mEnd(){//音乐播放结束后
+      let audio = this.$refs.audio
+      if(this.listId===this.songSheet.length-1){
+        this.toPlay(0)
+        audio.load();
+      }else{
+        this.toPlay(this.listId+1)
+        audio.load();
+      }
     },
     move(value){//获取用户拖动过后的Time
       this.$refs.audio.currentTime=(value/this.width*this.toltime)/1000
@@ -193,6 +220,9 @@ export default {
       this.listId=i
       this.nowId = this.songSheet[i].id
       this.playData = this.songSheet[i]
+      let nowMusic = JSON.stringify(this.songSheet[i])
+      // localStorage.setItem('nowMusic',nowMusic)//歌单存入localStorage
+      eventBus.$emit('nowMusic',this.songSheet[i]);
       this.getMusicSrc(this.nowId)
     },
     getMusicSrc(value){//获取音乐URL
@@ -228,7 +258,6 @@ export default {
       }
     },
     getStorage(){//取出localStorage里的歌单数据
-    console.log(JSON.parse(localStorage.getItem("musicList")))
       this.songSheet = JSON.parse(localStorage.getItem("musicList"))//取出localStorage里的歌单
       this.toPlay(this.listId)
     }

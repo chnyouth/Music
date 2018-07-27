@@ -3,6 +3,7 @@
     <mHeader></mHeader>
     <mLeft></mLeft>
     <mFooter></mFooter>
+    <play></play>
     <router-view class="router-view" :id="theme"></router-view>
   </div>
 </template>
@@ -12,13 +13,18 @@ import mHeader from './components/mHeader.vue'
 import mLeft from './components/mLeft.vue'
 import mBody from './components/mBody.vue'
 import mFooter from './components/mFooter.vue'
+import play from './components/play.vue'
 export default {
   name: 'App',
   components:{
     mHeader,
     mLeft,
     mBody,
-    mFooter
+    mFooter,
+    play
+  },
+  crenated(){
+    
   },
   computed: {
   // isShowPlay() {

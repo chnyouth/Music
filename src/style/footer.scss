@@ -244,6 +244,9 @@ body {
           &:nth-child(even){
             background: #F5F5F7;
           }
+          &:hover{
+            background: #EBECED;
+          }
         }
       }
     }

@@ -1,0 +1,16 @@
+.musicBox{
+  position: fixed;
+  top: 4.5rem;
+  background: #fff;
+  width: 100%;
+  z-index: 9999;
+  bottom: 4.6rem;
+  .musicBoxMask{
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.87);
+  }
+}
+.blur{
+
+}

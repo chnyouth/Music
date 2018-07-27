@@ -66,5 +66,41 @@ body {
     position: absolute;
     bottom: 0;
     width: 100%;
+    padding: 0 8px;
+    box-sizing: border-box;
+    .playleft{
+      float: left;
+      width: 70px;
+      height: 70px;
+      margin: 6.5px 0;
+      img{
+        width: 70px;
+        height: 70px;
+      }
+    }
+    .playright{
+      float: left;
+      margin: 6.5px 0;
+      line-height: 22px;
+      padding: 13px;
+      width: 65%;
+      em{
+        display: block;
+        font-style: normal;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 100%;
+        text-overflow: ellipsis;
+      }
+      i{
+        display: block;
+        font-style: normal;
+        color: #666;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 100%;
+        text-overflow: ellipsis;
+      }
+    }
   }
 }
