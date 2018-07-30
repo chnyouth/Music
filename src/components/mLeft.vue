@@ -21,7 +21,7 @@
       </div>
       <div class="playright">
         <em>{{this.nowMusic.name}}</em>
-        <i>{{this.nowMusic.artists[0].name}}</i>
+        <i>{{this.nowMusic.artists[0].name}}</i>  
       </div>
     </div>
   </div>
@@ -40,9 +40,10 @@ export default {
   },
   created(){
     let that = this
-    eventBus.$on('nowMusic', function (msg) {//取出当前播放的音乐数据
-      that.nowMusic = msg
-    })
+    // eventBus.$on('nowMusic', function (msg) {//取出当前播放的音乐数据
+    //   that.nowMusic = msg
+    // })
+    eventBus.$on('nowMusic', msg => {that.nowMusic = msg})
   },
   methods: {
 
