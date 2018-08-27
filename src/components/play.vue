@@ -1,6 +1,6 @@
 <template>
-  <div class="musicBox blur" :style="`background:url(${nowMusic.album.picUrl}) no-repeat #fff center 20%;`">
-    <div class="musicBoxMask">11</div>
+  <div class="musicBox" v-show="playBox">
+    <a v-on:click="close"></a>
   </div>
 </template>
 <script>
@@ -12,7 +12,8 @@ export default {
   },
   data(){
     return{
-        nowMusic:[]
+        nowMusic:[],
+        playBox:false
     }
   },
   created(){
@@ -20,9 +21,12 @@ export default {
     eventBus.$on('nowMusic', function (msg) {
       that.nowMusic = msg
     })
+    eventBus.$on('playBox', msg => {that.playBox = msg})//取出当前播放的音乐数据
   },
   methods: {
-    
+    close(){
+      this.playBox = false//关闭播放页面
+    }
   }
 }
 </script>

@@ -16,7 +16,7 @@
       </li>
     </ul>
     <div class="playBox">
-      <div class="playleft">
+      <div class="playleft" v-on:click="showPlayBox">
         <img :src="this.nowMusic.album.picUrl">
       </div>
       <div class="playright">
@@ -40,13 +40,13 @@ export default {
   },
   created(){
     let that = this
-    // eventBus.$on('nowMusic', function (msg) {//取出当前播放的音乐数据
-    //   that.nowMusic = msg
-    // })
-    eventBus.$on('nowMusic', msg => {that.nowMusic = msg})
+    eventBus.$on('nowMusic', msg => {that.nowMusic = msg})//取出当前播放的音乐数据
   },
   methods: {
-
+    showPlayBox(){
+      console.log(111)
+      eventBus.$emit('playBox',true)
+    }
   }
 }
 </script>

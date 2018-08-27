@@ -13,7 +13,7 @@
       <li v-for="(item,index) in musicList" v-bind:key="index">
         <div class="imgBox">
           <span><i class="iconfont">&#xe647;</i> {{item.playCount>10000?(((item.playCount-item.playCount%1000)/10000+'万')):(item.playCount)}}</span>
-          <a href="javascript:;" :style="{backgroundImage: 'url(' + bg2 + ')' }"></a>
+          <a href="javascript:;" :style="{backgroundImage: 'url(' + bg2 + ')' }" v-on:click="getSongsheetList(item.id)"></a>
           <img :src="item.coverImgUrl">
         </div>
         <div class="title">{{item.name}}</div>
@@ -104,6 +104,26 @@ export default {
 				console.log(err)
       })
     
+    },
+    getSongsheetList(value){
+      let that = this;
+      axios.get(urlConfig.url+'playlist/detail',{//获取歌单详细
+        params:{
+          id:value
+        }
+      })
+      .then(function(res){
+        if(res.data.code==200){
+          // localStorage.setItem('musicList',JSON.stringify(res.data.result.tracks))
+          that.$store.commit('getMusicList', res.data.result.tracks)
+          that.$store.commit('isPlay', true)
+        }else{
+          console.log(res.statusText)
+        }
+      })
+      .catch(function(err){
+				console.log(err)
+      })
     }
   },
   mounted(){

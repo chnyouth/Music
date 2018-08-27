@@ -24,7 +24,6 @@
 <script>
 import urlConfig from '../../urlConfig.vue';
 import axios from 'axios';
-import MC from 'mcanvas';
 import Bg2 from '../../public/iconall.png';
 export default {
   name:'bodyList',
@@ -58,8 +57,8 @@ export default {
       weekday[6]="星期六"
       this.week=weekday[d.getDay()]
 
-      var c=document.getElementById("myCanvas");//生成一个canvas实例
-      var ctx=c.getContext("2d");
+      var c=document.getElementById("myCanvas");
+      var ctx=c.getContext("2d");//生成一个canvas实例
 
       function canvasFunction(font,color,txt,x,y){//封装的canvas
         ctx.font=font;
