@@ -15,13 +15,13 @@
         <a href=""><i class="iconfont">&#xe7e3;</i>朋友</a>
       </li>
     </ul>
-    <div class="playBox">
+    <div class="playBox" v-if="this.nowMusic!=''">
       <div class="playleft" v-on:click="showPlayBox">
         <img :src="this.nowMusic.al.picUrl">
       </div>
       <div class="playright">
         <em>{{this.nowMusic.name}}</em>
-        <i><block v-for="( item , index ) in nowMusic.ar" :key="index">{{item.name}}<em v-if="index!=1" style="display:inline;">/</em></block></i>  
+        <i v-for="( item , index ) in nowMusic.ar" :key="index">{{item.name}}<em v-if="index!=0" style="display:inline;">/</em></i>  
       </div>
     </div>
   </div>

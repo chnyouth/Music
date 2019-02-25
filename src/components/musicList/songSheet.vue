@@ -102,11 +102,12 @@ export default {
         }
       })
       .then(function(res){
+        console.log(res)
         if(res.data.code==200){
-          // localStorage.setItem('musicList',JSON.stringify(res.data.result.tracks))
+          localStorage.setItem('musicList',JSON.stringify(res.data.playlist.tracks))
           // console.log(res.data.playlist.tracks)
           that.$store.commit('getMusicList', res.data.playlist.tracks)
-          // that.$store.commit('isPlay', true)
+          that.$store.commit('isPlay', true)
         }else{
           console.log(res.statusText)
         }

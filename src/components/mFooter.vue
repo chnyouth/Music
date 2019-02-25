@@ -41,7 +41,7 @@
       </div>
       <div class="playList">
         <i class="iconfont" v-on:click="openMusicList()">&#xe75c;</i>
-        <em class="" v-on:click="openMusicList()">{{songSheet==''?0:songSheet.length}}</em>
+        <em class="" v-on:click="openMusicList()">{{songSheet==undefined?0:songSheet.length}}</em>
       </div>
     </div>
     <div class="musicListBox" v-show="musicListBox">
@@ -54,17 +54,17 @@
       </div>
       <div class="list" v-show="historyBox">
         <div class="operationboard">
-          总{{songSheet==''?0:songSheet.length}}首<span><em class="iconfont">&#xe6f9; 收藏全部</em><em class="iconfont">&#xe68e; 清空</em></span>
+          总{{songSheet==undefined?0:songSheet.length}}首<span><em class="iconfont">&#xe6f9; 收藏全部</em><em class="iconfont">&#xe68e; 清空</em></span>
         </div>
-        <div class="noList" v-if="songSheet==''">
+        <div class="noList" v-if="songSheet==undefined">
           你还没有添加任何歌曲！<br>去首页<a href="javascript:;" v-on:click="menuChange()">发现音乐</a>
         </div>
-        <div class="listItem" v-if="songSheet!=''">
+        <div class="listItem" v-if="songSheet==undefined">
           <ul>
             <li v-for="(item , index) in songSheet" :key="index" v-on:dblclick="toPlay(index)">
               <i class="iconfont">{{playData.id==item.id?'&#xe609;':'　'}}</i>
-              <span class="name">{{item.name}}<em style="color:#999;font-style:normal;"><!--{{item.alias[0]==null?'':'('+item.alias[0]+')'}}--></em></span>
-              <span class="singer" v-for="(music , musicIndex) in songSheet.ar" :key="musicIndex">{{music[0].name}}</span>
+              <span class="name">{{item.name}}<em style="color:#999;font-style:normal;">{{item.alias[0]==null?'':'('+item.alias[0]+')'}}</em></span>
+              <span class="singer" v-for="(music , musicIndex) in songSheet.ar" :key="musicIndex">{{music[0]!=undefined?music[0].name:''}}</span>
               <span class="time">{{item.duration | formatDate}}</span>
             </li>
           </ul>
@@ -107,7 +107,6 @@ export default {
     // console.log(this.$store.state.isPlay)
     // if(this.$store.state.isPlay!=false){
       this.getStorage()
-      console.log(this.songSheet)
     // }
   },
   components:{
@@ -132,6 +131,7 @@ export default {
   },
   computed: {
     getMusicList() {//子组件返回的音乐列表
+      console.log(this.$store.state)
       if(this.$store.state.getMusicList.musicData.length!=0){
         let musicListData = JSON.stringify(this.$store.state.getMusicList.musicData)
         localStorage.setItem('musicList',musicListData)//歌单存入localStorage
@@ -218,13 +218,13 @@ export default {
       this.val=Number((value/70*100).toFixed())//放大一百倍
     },
     toPlay(i){//开始播放
-      this.listId=i
-      this.nowId = this.songSheet[i].id
-      this.playData = this.songSheet[i]
-      let nowMusic = JSON.stringify(this.songSheet[i])
-      // localStorage.setItem('nowMusic',nowMusic)//歌单存入localStorage
-      eventBus.$emit('nowMusic',this.songSheet[i]);
-      this.getMusicSrc(this.nowId)
+        this.listId=i
+        this.nowId = this.songSheet[i].id
+        this.playData = this.songSheet[i]
+        let nowMusic = JSON.stringify(this.songSheet[i])
+        // localStorage.setItem('nowMusic',nowMusic)//歌单存入localStorage
+        eventBus.$emit('nowMusic',this.songSheet[i]);
+        this.getMusicSrc(this.nowId)
     },
     getMusicSrc(value){//获取音乐URL
     console.log(value)
@@ -260,6 +260,7 @@ export default {
       }
     },
     getStorage(){//取出localStorage里的歌单数据
+    console.log(JSON.parse(localStorage.getItem("musicList")))
       this.songSheet = JSON.parse(localStorage.getItem("musicList"))//取出localStorage里的歌单
       this.toPlay(this.listId)
     }
