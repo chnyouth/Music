@@ -14,7 +14,7 @@
           'is-prev': isPrev
           }]">
           <span :style="{background:''+imgList[firstIndex].titleColor=='red'?'#CC4A4A':'#4A79CC'+''}">{{imgList[firstIndex].typeTitle}}</span>
-          <img :src="imgList[firstIndex].pic">
+          <img :src="imgList[firstIndex].imageUrl">
         </li>
         <li :class="[classBox[1], {
           'skip-left': isSkip && leftIndex === 1,
@@ -24,7 +24,7 @@
           'is-prev': isPrev
           }]">
           <span :style="{background:''+imgList[secondIndex].titleColor=='red'?'#CC4A4A':'#4A79CC'+''}">{{imgList[secondIndex].typeTitle}}</span>
-          <img :src="imgList[secondIndex].pic">
+          <img :src="imgList[secondIndex].imageUrl">
         </li>
         <li :class="[classBox[2], {
           'skip-left': isSkip && leftIndex === 2,
@@ -34,7 +34,7 @@
           'is-prev': isPrev
           }]">
           <span :style="{background:''+imgList[thirdIndex].titleColor=='red'?'#CC4A4A':'#4A79CC'+''}">{{imgList[thirdIndex].typeTitle}}</span>
-          <img :src="imgList[thirdIndex].pic">
+          <img :src="imgList[thirdIndex].imageUrl">
         </li>
       </ul>
       <div class="prev-btn" @click.stop="change('prev')">

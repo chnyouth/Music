@@ -14,7 +14,7 @@
               <span><i class="iconfont">&#xe647;</i> {{item.playCount>10000?(((item.playCount-item.playCount%1000)/10000+'万')):(item.playCount)}}</span>
               <div class="txtBox">{{item.copywriter}}</div>
               <a href="javascript:;" :style="{backgroundImage: 'url(' + bg2 + ')' }" v-on:click="getSongsheetList(item.id)"></a>
-              <img :src="item.picUrl">
+              <img :src="item.picUrl!=undefined?item.picUrl:''">
             </div>
             <div class="title">{{item.name}}</div>
         </li>
@@ -37,7 +37,7 @@ export default {
     }
 	},
 	created:function(){
-
+    console.log(this.musicList)
 	},
   computed: {
 
@@ -104,8 +104,9 @@ export default {
       .then(function(res){
         if(res.data.code==200){
           // localStorage.setItem('musicList',JSON.stringify(res.data.result.tracks))
-          that.$store.commit('getMusicList', res.data.result.tracks)
-          that.$store.commit('isPlay', true)
+          // console.log(res.data.playlist.tracks)
+          that.$store.commit('getMusicList', res.data.playlist.tracks)
+          // that.$store.commit('isPlay', true)
         }else{
           console.log(res.statusText)
         }

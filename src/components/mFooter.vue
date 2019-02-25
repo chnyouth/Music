@@ -63,8 +63,8 @@
           <ul>
             <li v-for="(item , index) in songSheet" :key="index" v-on:dblclick="toPlay(index)">
               <i class="iconfont">{{playData.id==item.id?'&#xe609;':'　'}}</i>
-              <span class="name">{{item.name}}<em style="color:#999;font-style:normal;">{{item.alias[0]==null?'':'('+item.alias[0]+')'}}</em></span>
-              <span class="singer">{{item.artists[0].name}}</span>
+              <span class="name">{{item.name}}<em style="color:#999;font-style:normal;"><!--{{item.alias[0]==null?'':'('+item.alias[0]+')'}}--></em></span>
+              <span class="singer" v-for="(music , musicIndex) in songSheet.ar" :key="musicIndex">{{music[0].name}}</span>
               <span class="time">{{item.duration | formatDate}}</span>
             </li>
           </ul>
@@ -107,6 +107,7 @@ export default {
     // console.log(this.$store.state.isPlay)
     // if(this.$store.state.isPlay!=false){
       this.getStorage()
+      console.log(this.songSheet)
     // }
   },
   components:{
@@ -226,8 +227,9 @@ export default {
       this.getMusicSrc(this.nowId)
     },
     getMusicSrc(value){//获取音乐URL
+    console.log(value)
       let that = this;
-      axios.get(urlConfig.url+'music/url',{
+      axios.get(urlConfig.url+'song/url',{
         params:{
           id:value
         }

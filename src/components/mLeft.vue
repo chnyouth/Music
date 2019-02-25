@@ -17,11 +17,11 @@
     </ul>
     <div class="playBox">
       <div class="playleft" v-on:click="showPlayBox">
-        <img :src="this.nowMusic.album.picUrl">
+        <img :src="this.nowMusic.al.picUrl">
       </div>
       <div class="playright">
         <em>{{this.nowMusic.name}}</em>
-        <i>{{this.nowMusic.artists[0].name}}</i>  
+        <i><block v-for="( item , index ) in nowMusic.ar" :key="index">{{item.name}}<em v-if="index!=1" style="display:inline;">/</em></block></i>  
       </div>
     </div>
   </div>
@@ -40,11 +40,12 @@ export default {
   },
   created(){
     let that = this
-    eventBus.$on('nowMusic', msg => {that.nowMusic = msg})//取出当前播放的音乐数据
+    eventBus.$on('nowMusic', msg => {that.nowMusic = msg
+    console.log(msg)})//取出当前播放的音乐数据
+    
   },
   methods: {
     showPlayBox(){
-      console.log(111)
       eventBus.$emit('playBox',true)
     }
   }
