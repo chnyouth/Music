@@ -21,7 +21,7 @@
       </div>
       <div class="playright">
         <em>{{this.nowMusic.name}}</em>
-        <i v-for="( item , index ) in nowMusic.ar" :key="index">{{item.name}}<em v-if="index!=0" style="display:inline;">/</em></i>  
+        <i v-for="( item , index ) in nowMusic.ar" :key="index">{{item.name}}<em v-if="index!=0" style="display:inline;">/</em></i>
       </div>
     </div>
   </div>
