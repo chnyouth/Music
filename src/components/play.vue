@@ -1,6 +1,6 @@
 <template>
   <div class="musicBox" v-show="playBox">
-    <a v-on:click="close"></a>
+    <a v-on:click="close" class="close iconfont">&#xe7af;</a>
   </div>
 </template>
 <script>
