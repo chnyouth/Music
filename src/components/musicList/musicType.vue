@@ -3,9 +3,12 @@
     <div class="musicTypeAll">
       <span>全部歌单 <i class="iconfont">&#xe603;</i></span>
       <div class="model">
-        <p>添加标签</p>
-        <a href="javascript:;">全部歌单</a>
-        <div class=""></div>
+        <i class="iconfont">&#xe610;</i>
+        <i class="iconfont">&#xe60a;</i>
+        <i class="iconfont">&#xe60b;</i>
+        <i class="iconfont">&#xe60c;</i>
+        <i class="iconfont">&#xe60d;</i>
+        <i class="iconfont">&#xe60e;</i>
       </div>
     </div>
     <div class="hotType">热门标签：<a href="javascript:;" v-for="(item,index) in hotTags" :key="index">{{item.name}}</a></div>
@@ -50,22 +53,22 @@ export default {
   methods: {
     init(){
       let that = this;
-      // axios.get(urlConfig.url+'playlist/catlist',{//获取歌单分类
-      //   params:{
+       axios.get(urlConfig.url+'playlist/catlist',{//获取歌单分类
+         params:{
 
-      //   }
-      // })
-      // .then(function(res){
-      //   // console.log(res)
-      //   if(res.data.code==200){
-      //     that.musicList = res.data.result
-      //   }else{
-      //     // console.log(res.statusText)
-      //   }
-      // })
-      // .catch(function(err){
-			// 	console.log(err)
-      // })
+         }
+       })
+       .then(function(res){
+          console.log(res)
+         if(res.data.code==200){
+           that.musicList = res.data.result
+         }else{
+           // console.log(res.statusText)
+         }
+       })
+       .catch(function(err){
+			 	console.log(err)
+       })
 
 
       axios.get(urlConfig.url+'playlist/hot',{//热门歌单分类
