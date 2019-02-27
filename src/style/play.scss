@@ -18,4 +18,88 @@
       color: rgb(106, 106, 106);
     }
   }
+  .playMusic_top{
+    width: 1300px;
+    margin: 0 auto;
+    &>div{
+      width: 50%;
+      float: left;
+    }
+    .musicScroll{
+      .song-disc{
+        width: 380px;
+        height: 380px;
+        position: relative;
+        .song-turn{
+          width: 100%;
+          height: 100%;
+          &:before{
+            content: " ";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 2;
+            background-image: url('https://s3.music.126.net/m/s/img/disc-plus.png?b700b62e1971b351dcb8b8ce1c9ceea3');
+            background-size: contain;
+          }
+          .song-rollwrap{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 1;
+            width: 240px;
+            height: 240px;
+            margin: -120px 0 0 -120px;
+            .song-img{
+              width: 100%;
+              height: 100%;
+              border-radius: 50%;
+              overflow: hidden;
+              background: url('https://s3.music.126.net/m/s/img/disc_default.png?7c9b3adc16f5485c2bfbe8a540534188') no-repeat;
+              background-size: contain
+            }
+          }
+          .song-lgour{
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 3;
+            .song-light{
+              position: absolute;
+              left: 0;
+              right: 0;
+              top: 0;
+              bottom: 0;
+              z-index: 3;
+              background: url('https://s3.music.126.net/m/s/img/disc_light-plus.png?4392c8c9a8a33d4b2b2c33d3995503c9') no-repeat;
+              background-size: contain;
+            }
+          }
+        }
+      }
+    }
+  }
 }
+
+@keyframes circling {
+	0% {
+		transform: rotate(0deg)
+	}
+
+	to {
+		transform: rotate(1turn)
+	}
+}
+
+.a-circling {
+	animation: circling 20s infinite linear
+}
+
+.a-circling.z-pause {
+	animation-play-state: paused
+}
+

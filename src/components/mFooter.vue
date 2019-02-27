@@ -222,7 +222,7 @@ export default {
         this.nowId = this.songSheet[i].id
         this.playData = this.songSheet[i]
         let nowMusic = JSON.stringify(this.songSheet[i])
-        // localStorage.setItem('nowMusic',nowMusic)//歌单存入localStorage
+        localStorage.setItem('nowMusic',nowMusic)//歌单存入localStorage
         eventBus.$emit('nowMusic',this.songSheet[i]);
         this.getMusicSrc(this.nowId)
     },

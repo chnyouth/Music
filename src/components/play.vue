@@ -1,6 +1,23 @@
 <template>
   <div class="musicBox" v-show="playBox">
     <a v-on:click="close" class="close iconfont">&#xe7af;</a>
+    <div class="playMusic_top">
+      <div class="musicScroll">
+        <div class="song-disc">
+          <div class="song-turn">
+            <div class="song-rollwrap">
+              <div class="song-img a-circling">
+                <img class="u-img" src="http://p1.music.126.net/YLuPxIioBX6TneLAv8dr2Q==/109951163858116619.jpg?imageView&amp;thumbnail=380y380&amp;quality=100&amp;tostatic=0">
+                </div>
+            </div>
+            <div class="song-lgour a-circling">
+              <div class="song-light"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="musicIrc"></div>
+    </div>
   </div>
 </template>
 <script>
@@ -18,9 +35,8 @@ export default {
   },
   created(){
     let that = this
-    eventBus.$on('nowMusic', function (msg) {
-      that.nowMusic = msg
-    })
+    this.nowMusic = JSON.parse(localStorage.getItem('nowMusic'))
+    console.log(this.nowMusic)
     eventBus.$on('playBox', msg => {that.playBox = msg})//取出当前播放的音乐数据
   },
   methods: {

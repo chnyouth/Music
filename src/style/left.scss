@@ -93,14 +93,20 @@ body {
         width: 100%;
         text-overflow: ellipsis;
       }
-      i{
+      div{
         display: block;
-        font-style: normal;
-        color: #666;
         white-space: nowrap;
-        overflow: hidden;
         width: 100%;
         text-overflow: ellipsis;
+        overflow: hidden;
+        i{
+          font-style: normal;
+          color: #666;
+          white-space: nowrap;
+          overflow: hidden;
+          width: 100%;
+          text-overflow: ellipsis;
+        }
       }
     }
   }

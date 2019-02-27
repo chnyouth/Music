@@ -21,7 +21,7 @@
       </div>
       <div class="playright">
         <em>{{this.nowMusic.name}}</em>
-        <i v-for="( item , index ) in nowMusic.ar" :key="index">{{item.name}}<em v-if="index!=0" style="display:inline;">/</em></i>
+        <div><i v-for="( item , index ) in nowMusic.ar" :key="index">{{item.name}}<em v-if="index!=0" style="display:inline;">/</em></i>z</div>
       </div>
     </div>
   </div>
@@ -40,8 +40,13 @@ export default {
   },
   created(){
     let that = this
-    eventBus.$on('nowMusic', msg => {that.nowMusic = msg
-    console.log(msg)})//取出当前播放的音乐数据
+    eventBus.$on('nowMusic', msg => {
+      if(msg==undefined){
+        this.nowMusic = JSON.parse(localStorage.getItem('nowMusic'))
+      }else{
+        that.nowMusic = msg
+      }
+    })//取出当前播放的音乐数据
     
   },
   methods: {
